@@ -65,25 +65,6 @@ export default function SignInPage() {
                   Login as Cashier
                 </button>
               </div>
-
-              <div className="relative pt-2">
-                <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-gray-300" />
-                </div>
-                <div className="relative flex justify-center text-sm">
-                  <span className="px-2 bg-white text-gray-500">Or real auth</span>
-                </div>
-              </div>
-
-              <div>
-                <button
-                  onClick={() => setShowClerk(true)}
-                  className="w-full flex justify-center py-3 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-                >
-                  <Key className="w-5 h-5 mr-2" />
-                  Login with Clerk
-                </button>
-              </div>
             </div>
             
             <div className="mt-6">
