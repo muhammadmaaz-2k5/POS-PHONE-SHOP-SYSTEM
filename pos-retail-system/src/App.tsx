@@ -24,10 +24,6 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import ErrorBoundary from './components/layout/ErrorBoundary';
 
 const IndexRoute = () => {
-  const { user } = useCurrentUser();
-  if (user?.role === 'cashier') {
-    return <Navigate to="/pos" replace />;
-  }
   return <DashboardPage />;
 };
 

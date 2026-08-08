@@ -12,9 +12,9 @@ import { protect, authorize } from '../middleware/auth';
 
 const router = Router();
 
-// Protect all analytics endpoints and restrict to admins
+// Protect all analytics endpoints
 router.use(protect);
-router.use(authorize('admin'));
+router.use(authorize('admin', 'cashier'));
 
 router.get('/dashboard', getDashboardKPIs);
 router.get('/sales/daily', getDailySales);
