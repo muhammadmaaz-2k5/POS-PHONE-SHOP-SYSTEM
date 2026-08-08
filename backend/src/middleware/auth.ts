@@ -18,8 +18,7 @@ export const mockAuthMiddleware = async (req: Request, _res: Response, next: Nex
       user = await prisma.user.create({
         data: {
           email: mockEmail,
-          firstName: 'Mock',
-          lastName: role,
+          name: `Mock ${role}`,
           role: role,
           clerkUserId,
         }
