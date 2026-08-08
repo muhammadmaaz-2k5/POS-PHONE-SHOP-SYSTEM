@@ -5,7 +5,6 @@ import asyncHandler from '../utils/asyncHandler';
 import sendResponse from '../utils/sendResponse';
 import ApiError from '../utils/ApiError';
 import { Prisma } from '@prisma/client';
-import { getAuth } from '@clerk/express';
 
 const purchaseItemSchema = z.object({
   productId: z.string().min(1, 'Product ID is required'),
@@ -21,7 +20,7 @@ const purchaseSchema = z.object({
 
 export const createPurchase = asyncHandler(async (req: Request, res: Response) => {
   const parsedData = purchaseSchema.parse(req.body);
-  const { userId } = getAuth(req);
+  const userId = (req as any).auth?.userId;
 
   if (!userId) {
     throw new ApiError('Unauthorized', 401);

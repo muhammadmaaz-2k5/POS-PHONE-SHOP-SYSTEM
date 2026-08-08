@@ -4,7 +4,6 @@ import prisma from '../config/prisma';
 import asyncHandler from '../utils/asyncHandler';
 import sendResponse from '../utils/sendResponse';
 import ApiError from '../utils/ApiError';
-import { getAuth } from '@clerk/express';
 
 
 const saleItemSchema = z.object({
@@ -49,7 +48,7 @@ async function generateInvoiceNumber(): Promise<string> {
 
 export const createSale = asyncHandler(async (req: Request, res: Response) => {
   const parsedData = saleSchema.parse(req.body);
-  const { userId } = getAuth(req);
+  const userId = (req as any).auth?.userId;
 
   if (!userId) {
     throw new ApiError('Unauthorized', 401);

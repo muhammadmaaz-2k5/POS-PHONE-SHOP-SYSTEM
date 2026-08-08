@@ -1,5 +1,3 @@
-import { useUser } from '@clerk/clerk-react';
-
 interface CurrentUser {
   id: string;
   name: string;
@@ -9,21 +7,19 @@ interface CurrentUser {
 }
 
 export function useCurrentUser(): { user: CurrentUser | null; isLoaded: boolean } {
-  const { user: clerkUser, isLoaded } = useUser();
+  const role = (localStorage.getItem('mock_role') as 'admin' | 'cashier') || null;
 
-  if (!isLoaded || !clerkUser) {
-    return { user: null, isLoaded };
+  if (!role) {
+    return { user: null, isLoaded: true };
   }
 
-  const role = (clerkUser.publicMetadata?.role as 'admin' | 'cashier') || 'cashier';
-
   const user: CurrentUser = {
-    id: clerkUser.id,
-    name: clerkUser.fullName || clerkUser.username || 'User',
-    email: clerkUser.primaryEmailAddress?.emailAddress || '',
+    id: `mock_clerk_${role}`,
+    name: role === 'admin' ? 'Admin User' : 'Cashier User',
+    email: `mock_${role}@example.com`,
     role,
     isAdmin: role === 'admin',
   };
 
-  return { user, isLoaded };
+  return { user, isLoaded: true };
 }

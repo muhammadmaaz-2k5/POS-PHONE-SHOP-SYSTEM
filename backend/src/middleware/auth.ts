@@ -1,27 +1,48 @@
 import { Request, Response, NextFunction } from 'express';
-import { getAuth } from '@clerk/express';
 import ApiError from '../utils/ApiError';
+import prisma from '../config/prisma';
 
-/**
- * Protects routes — verifies Clerk session on every request.
- * Must be used AFTER clerkMiddleware() is applied globally.
- */
+export const mockAuthMiddleware = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
+  const role = (req.headers['x-mock-role'] as string) || 'admin';
+  const clerkUserId = `mock_clerk_${role}`;
+  
+  (req as any).auth = {
+    userId: clerkUserId,
+    sessionClaims: { metadata: { role } }
+  };
+
+  try {
+    const mockEmail = `mock_${role}@example.com`;
+    let user = await prisma.user.findUnique({ where: { clerkUserId } });
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          email: mockEmail,
+          firstName: 'Mock',
+          lastName: role,
+          role: role,
+          clerkUserId,
+        }
+      });
+    }
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const protect = (req: Request, _res: Response, next: NextFunction): void => {
-  const { userId } = getAuth(req);
-  if (!userId) {
+  const auth = (req as any).auth;
+  if (!auth || !auth.userId) {
     return next(new ApiError('Not authorized to access this route', 401));
   }
   next();
 };
 
-/**
- * Restricts access by role stored in Clerk session claims.
- * @param roles - Allowed roles (e.g. 'admin', 'cashier')
- */
 export const authorize = (...roles: string[]) => {
   return (req: Request, _res: Response, next: NextFunction): void => {
-    const { sessionClaims } = getAuth(req);
-    const role = (sessionClaims?.metadata as { role?: string })?.role ?? 'cashier';
+    const auth = (req as any).auth;
+    const role = auth?.sessionClaims?.metadata?.role ?? 'cashier';
     if (!roles.includes(role)) {
       return next(
         new ApiError(`Role '${role}' is not authorized to access this route`, 403)

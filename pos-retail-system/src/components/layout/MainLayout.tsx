@@ -1,5 +1,4 @@
-import { Outlet, Link, useLocation } from 'react-router-dom';
-import { UserButton } from '@clerk/clerk-react';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   ShoppingCart, 
@@ -11,9 +10,14 @@ import {
 } from 'lucide-react';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 
-export default function MainLayout() {
   const { user } = useCurrentUser();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('mock_role');
+    navigate('/sign-in');
+  };
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -60,8 +64,7 @@ export default function MainLayout() {
 
         {/* User Profile Footer */}
         <div className="p-4 border-t border-gray-200 dark:border-gray-800">
-          <div className="flex items-center gap-3">
-            <UserButton afterSignOutUrl="/sign-in" />
+          <div className="flex items-center justify-between">
             <div className="flex flex-col">
               <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
                 {user?.name}
@@ -70,6 +73,12 @@ export default function MainLayout() {
                 {user?.role}
               </span>
             </div>
+            <button 
+              onClick={handleLogout}
+              className="text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </aside>

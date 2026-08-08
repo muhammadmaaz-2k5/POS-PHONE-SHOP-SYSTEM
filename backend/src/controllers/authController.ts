@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { getAuth } from '@clerk/express';
 import asyncHandler from '../utils/asyncHandler';
 import sendResponse from '../utils/sendResponse';
 import prisma from '../config/prisma';
@@ -11,7 +10,7 @@ import ApiError from '../utils/ApiError';
  * @access  Private
  */
 export const getMe = asyncHandler(async (req: Request, res: Response) => {
-  const { userId: clerkUserId } = getAuth(req);
+  const clerkUserId = (req as any).auth?.userId;
   
   if (!clerkUserId) {
     throw new ApiError('Not authenticated', 401);

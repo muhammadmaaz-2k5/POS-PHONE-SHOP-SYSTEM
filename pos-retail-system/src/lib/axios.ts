@@ -7,11 +7,12 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-// ─── Request interceptor — attach Clerk JWT ───────────────────────────────────
+// ─── Request interceptor — attach Mock Role ───────────────────────────────────
 api.interceptors.request.use(async (config) => {
-  // Clerk token is injected here in Sprint 1 after ClerkProvider is set up
-  // const token = await window.Clerk?.session?.getToken();
-  // if (token) config.headers.Authorization = `Bearer ${token}`;
+  const role = localStorage.getItem('mock_role');
+  if (role) {
+    config.headers['x-mock-role'] = role;
+  }
   return config;
 });
 
