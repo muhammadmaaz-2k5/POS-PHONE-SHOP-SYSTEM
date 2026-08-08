@@ -35,6 +35,7 @@ model Product {
   ram           String?
   storage       String?
   color         String?
+  imageUrl      String?
   purchasePrice Decimal  @db.Decimal(10, 2)
   sellingPrice  Decimal  @db.Decimal(10, 2)
   stock         Int      @default(0)

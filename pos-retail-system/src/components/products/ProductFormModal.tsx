@@ -5,6 +5,7 @@ import { X } from 'lucide-react';
 import { Product } from '../../types';
 import { useProductStore } from '../../store/useProductStore';
 import toast from 'react-hot-toast';
+import { useState } from 'react';
 
 const productSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -19,6 +20,7 @@ const productSchema = z.object({
   sellingPrice: z.number().min(0, 'Must be positive'),
   stock: z.number().int().min(0, 'Must be 0 or more'),
   minimumStock: z.number().int().min(1, 'Must be 1 or more'),
+  imageUrl: z.string().nullable().optional(),
 });
 
 type ProductFormData = z.infer<typeof productSchema>;
@@ -35,12 +37,14 @@ const STORAGE_OPTIONS = ['64GB', '128GB', '256GB', '512GB', '1TB', 'Other'];
 
 export function ProductFormModal({ isOpen, onClose, product }: ProductFormModalProps) {
   const { createProduct, updateProduct } = useProductStore();
+  const [isUploading, setIsUploading] = useState(false);
 
   const {
     register,
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<ProductFormData>({
     resolver: zodResolver(productSchema),
@@ -62,6 +66,36 @@ export function ProductFormModal({ isOpen, onClose, product }: ProductFormModalP
   const profitMargin = purchasePrice > 0 
     ? (((sellingPrice - purchasePrice) / purchasePrice) * 100).toFixed(1) 
     : '0.0';
+    
+  const imageUrl = watch('imageUrl');
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', 'pos-phone-shop');
+
+    try {
+      const response = await fetch('https://api.cloudinary.com/v1_1/itomku0j/image/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+      if (data.secure_url) {
+        setValue('imageUrl', data.secure_url);
+        toast.success('Image uploaded successfully');
+      } else {
+        throw new Error(data.error?.message || 'Upload failed');
+      }
+    } catch (error: any) {
+      toast.error('Image upload failed: ' + error.message);
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const onSubmit = async (data: ProductFormData) => {
     try {
@@ -97,6 +131,33 @@ export function ProductFormModal({ isOpen, onClose, product }: ProductFormModalP
 
         {/* Form */}
         <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
+          
+          <div className="flex flex-col items-center justify-center space-y-4 mb-6 pb-6 border-b border-gray-200 dark:border-gray-800">
+            {imageUrl ? (
+              <div className="relative w-32 h-32 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-800">
+                <img src={imageUrl} alt="Product Preview" className="object-cover w-full h-full" />
+                <button type="button" onClick={() => setValue('imageUrl', '')} className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 hover:bg-red-600 transition">
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ) : (
+              <div className="w-32 h-32 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700 flex flex-col items-center justify-center text-gray-500 bg-gray-50 dark:bg-gray-800">
+                {isUploading ? (
+                  <span className="text-sm font-medium animate-pulse">Uploading...</span>
+                ) : (
+                  <>
+                    <span className="text-sm font-medium">No Image</span>
+                    <label className="mt-2 text-xs text-primary-600 hover:text-primary-700 cursor-pointer">
+                      Upload
+                      <input type="file" accept="image/*" className="hidden" onChange={handleImageUpload} disabled={isUploading} />
+                    </label>
+                  </>
+                )}
+              </div>
+            )}
+            <input type="hidden" {...register('imageUrl')} />
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             
             <div className="space-y-1 md:col-span-2">

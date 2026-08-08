@@ -1,5 +1,5 @@
 import { Product } from '../../types';
-import { Edit, Trash2 } from 'lucide-react';
+import { Edit, Trash2, Package } from 'lucide-react';
 import { StockBadge } from './StockBadge';
 
 interface ProductsTableProps {
@@ -47,9 +47,20 @@ export function ProductsTable({ products, isLoading, onEdit, onDelete, isAdmin }
             {products.map((product) => (
               <tr key={product.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-800/20 transition-colors">
                 <td className="px-6 py-4">
-                  <div className="flex flex-col">
-                    <span className="font-semibold text-gray-900 dark:text-gray-100">{product.name}</span>
-                    <span className="text-xs text-gray-500">{product.brand} • {product.model}</span>
+                  <div className="flex items-center gap-3">
+                    {product.imageUrl ? (
+                      <div className="w-10 h-10 rounded-md border border-gray-200 dark:border-gray-700 bg-white flex items-center justify-center p-1 shrink-0">
+                        <img src={product.imageUrl} alt="" className="max-w-full max-h-full object-contain" />
+                      </div>
+                    ) : (
+                      <div className="w-10 h-10 shrink-0 rounded-md bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 flex items-center justify-center">
+                        <Package className="w-5 h-5 text-gray-400" />
+                      </div>
+                    )}
+                    <div className="flex flex-col">
+                      <span className="font-semibold text-gray-900 dark:text-gray-100">{product.name}</span>
+                      <span className="text-xs text-gray-500">{product.brand} • {product.model}</span>
+                    </div>
                   </div>
                 </td>
                 <td className="px-6 py-4">

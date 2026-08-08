@@ -16,6 +16,7 @@ const productSchema = z.object({
   ram: z.string().nullable().optional(),
   storage: z.string().nullable().optional(),
   color: z.string().nullable().optional(),
+  imageUrl: z.string().nullable().optional(),
   purchasePrice: z.number().positive('Purchase price must be positive'),
   sellingPrice: z.number().positive('Selling price must be positive'),
   stock: z.number().int().min(0, 'Stock cannot be negative'),

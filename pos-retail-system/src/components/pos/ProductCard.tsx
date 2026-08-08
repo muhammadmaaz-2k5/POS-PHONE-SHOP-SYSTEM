@@ -1,5 +1,6 @@
 import { Product } from '../../types';
 import { useCartStore } from '../../store/useCartStore';
+import { Package } from 'lucide-react';
 
 interface ProductCardProps {
   product: Product;
@@ -42,6 +43,17 @@ export function ProductCard({ product }: ProductCardProps) {
       {cartQty > 0 && !isOutOfStock && (
         <div className="absolute -top-2 -right-2 w-6 h-6 bg-primary-600 text-white rounded-full flex items-center justify-center text-xs font-bold shadow-sm z-10 animate-in zoom-in">
           {cartQty}
+        </div>
+      )}
+      
+      {/* Product Image */}
+      {product.imageUrl ? (
+        <div className="w-full h-32 mb-3 bg-white dark:bg-gray-800 rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center p-2 border border-gray-100 dark:border-gray-700">
+          <img src={product.imageUrl} alt={product.name} className="max-w-full max-h-full object-contain drop-shadow-sm" />
+        </div>
+      ) : (
+        <div className="w-full h-32 mb-3 bg-gray-50 dark:bg-gray-800 rounded-lg flex-shrink-0 flex items-center justify-center border border-gray-100 dark:border-gray-700">
+          <Package className="w-8 h-8 text-gray-300 dark:text-gray-600" />
         </div>
       )}
 

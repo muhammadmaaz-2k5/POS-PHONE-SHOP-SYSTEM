@@ -20,6 +20,7 @@ export interface Product {
   ram: string | null;
   storage: string | null;
   color: string | null;
+  imageUrl: string | null;
   purchasePrice: number;
   sellingPrice: number;
   stock: number;
