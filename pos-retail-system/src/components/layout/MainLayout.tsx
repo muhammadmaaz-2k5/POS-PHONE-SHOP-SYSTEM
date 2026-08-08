@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { useCurrentUser } from '../../hooks/useCurrentUser';
 
+export default function MainLayout() {
   const { user } = useCurrentUser();
   const location = useLocation();
   const navigate = useNavigate();
