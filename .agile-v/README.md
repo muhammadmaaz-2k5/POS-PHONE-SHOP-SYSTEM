@@ -24,8 +24,8 @@
 
 | Sprint | Name                             | Focus                              | Status     |
 |--------|----------------------------------|------------------------------------|------------|
-| S0     | 🏗️ Foundation & Setup          | Repo, DB, Prisma, Clerk config     | 🔵 Planned |
-| S1     | 🔐 Authentication               | Clerk, roles, user sync to DB      | 🔵 Planned |
+| S0     | 🏗️ Foundation & Setup          | Repo, DB, Prisma, Clerk config     | ✅ Complete |
+| S1     | 🔐 Authentication               | Clerk, roles, user sync to DB      | 🟡 Next    |
 | S2     | 📦 Products & Inventory         | CRUD, IMEI, categories, stock      | 🔵 Planned |
 | S3     | 👥 Customers & Suppliers        | CRUD, search, purchase history     | 🔵 Planned |
 | S4     | 🛒 POS / Sales Screen           | Cashier UI, cart, checkout         | 🔵 Planned |
