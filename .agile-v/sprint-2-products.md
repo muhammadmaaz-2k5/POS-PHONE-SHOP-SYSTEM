@@ -3,7 +3,7 @@
 > **Duration:** Week 3
 > **Goal:** Full product management with IMEI tracking, categories, stock status, and search/filter.
 > **Story Points:** 21
-> **Status:** 🔵 Planned
+> **Status:** ✅ Complete
 
 ---
 
@@ -48,8 +48,8 @@ model Product {
 **So that** the frontend can create, read, update, and delete products.
 
 #### Tasks:
-- [ ] Create `routes/productRoutes.ts`
-- [ ] Create `controllers/productController.ts` with:
+- [x] Create `routes/productRoutes.ts`
+- [x] Create `controllers/productController.ts` with:
   ```
   GET    /api/products          → getAllProducts (with filters, search, pagination)
   GET    /api/products/:id      → getProductById
@@ -58,18 +58,18 @@ model Product {
   DELETE /api/products/:id      → deleteProduct  [Admin only]
   GET    /api/products/low-stock → getLowStockProducts
   ```
-- [ ] Query params for `getAllProducts`:
+- [x] Query params for `getAllProducts`:
   - `?search=` (name, brand, model, imei)
   - `?category=` filter
   - `?page=` & `?limit=` pagination
   - `?sortBy=` & `?order=`
-- [ ] Apply `requireRole('admin')` to POST, PUT, DELETE
-- [ ] Validate all input with `zod`:
+- [x] Apply `requireRole('admin')` to POST, PUT, DELETE
+- [x] Validate all input with `zod`:
   - name, brand, model, category required
   - purchasePrice, sellingPrice must be positive numbers
   - stock ≥ 0
   - minimumStock ≥ 1
-- [ ] Test all endpoints in Postman, save to Postman collection
+- [x] Test all endpoints in Postman, save to Postman collection
 
 ---
 
@@ -79,19 +79,19 @@ model Product {
 **So that** I can quickly find any product.
 
 #### Tasks:
-- [ ] Create `pages/ProductsPage.tsx`
-- [ ] Build `components/products/ProductsTable.tsx`:
+- [x] Create `pages/ProductsPage.tsx`
+- [x] Build `components/products/ProductsTable.tsx`:
   - Columns: Image placeholder, Name, Brand, Category, IMEI, Stock, Price, Actions
   - Row color: 🔴 red if `stock ≤ minimumStock`
   - Action buttons: Edit ✏️, Delete 🗑️
-- [ ] Build `components/products/ProductFilters.tsx`:
+- [x] Build `components/products/ProductFilters.tsx`:
   - Search input (debounced 300ms)
   - Category dropdown filter
   - Stock status toggle (All / Low Stock)
-- [ ] Pagination component (Previous / Next / Page numbers)
-- [ ] Loading skeleton while fetching
-- [ ] Empty state: "No products found" illustration
-- [ ] Create Zustand store: `useProductStore`:
+- [x] Pagination component (Previous / Next / Page numbers)
+- [x] Loading skeleton while fetching
+- [x] Empty state: "No products found" illustration
+- [x] Create Zustand store: `useProductStore`:
   ```ts
   // State: products, total, page, filters, isLoading
   // Actions: fetchProducts, setFilter, setPage
@@ -105,8 +105,8 @@ model Product {
 **So that** I can manage inventory without a separate page.
 
 #### Tasks:
-- [ ] Create `components/products/ProductFormModal.tsx` (used for both Add & Edit)
-- [ ] Form fields:
+- [x] Create `components/products/ProductFormModal.tsx` (used for both Add & Edit)
+- [x] Form fields:
   - Name * (text)
   - Brand * (text)
   - Model * (text)
@@ -119,10 +119,10 @@ model Product {
   - Selling Price * (number)
   - Stock * (number)
   - Minimum Stock * (number, default: 5)
-- [ ] Client-side validation with `react-hook-form` + `zod`
-- [ ] Show profit margin: `((sellingPrice - purchasePrice) / purchasePrice * 100).toFixed(1)%`
-- [ ] On submit: POST/PUT to API → close modal → refresh table → toast success
-- [ ] Confirm delete dialog before DELETE
+- [x] Client-side validation with `react-hook-form` + `zod`
+- [x] Show profit margin: `((sellingPrice - purchasePrice) / purchasePrice * 100).toFixed(1)%`
+- [x] On submit: POST/PUT to API → close modal → refresh table → toast success
+- [x] Confirm delete dialog before DELETE
 
 ---
 
@@ -132,11 +132,11 @@ model Product {
 **So that** I can reorder before running out.
 
 #### Tasks:
-- [ ] `GET /api/products/low-stock` → products where `stock ≤ minimumStock`
-- [ ] Dashboard widget: "⚠️ Low Stock Products" count badge (built here, used in Sprint 6)
-- [ ] Products table: red badge "LOW STOCK" on affected rows
-- [ ] Dedicated filter "Show Low Stock Only" toggle in ProductFilters
-- [ ] Toast notification on login if >5 products are low stock
+- [x] `GET /api/products/low-stock` → products where `stock ≤ minimumStock`
+- [x] Dashboard widget: "⚠️ Low Stock Products" count badge (built here, used in Sprint 6)
+- [x] Products table: red badge "LOW STOCK" on affected rows
+- [x] Dedicated filter "Show Low Stock Only" toggle in ProductFilters
+- [x] Toast notification on login if >5 products are low stock
 
 ---
 
@@ -146,11 +146,11 @@ model Product {
 **So that** I can identify individual units sold.
 
 #### Tasks:
-- [ ] IMEI field: 15-digit numeric validation (or null for non-phone products)
-- [ ] Backend: Prisma unique constraint on `imei` (already in schema)
-- [ ] Handle duplicate IMEI error: return `{ error: "IMEI already registered" }`
-- [ ] Frontend: show IMEI validation error inline in form
-- [ ] IMEI searchable in the main product search
+- [x] IMEI field: 15-digit numeric validation (or null for non-phone products)
+- [x] Backend: Prisma unique constraint on `imei` (already in schema)
+- [x] Handle duplicate IMEI error: return `{ error: "IMEI already registered" }`
+- [x] Frontend: show IMEI validation error inline in form
+- [x] IMEI searchable in the main product search
 
 ---
 
@@ -170,13 +170,13 @@ model Product {
 
 ## ✅ Sprint 2 Acceptance Criteria
 
-- [ ] All 5 CRUD endpoints work and are tested in Postman
-- [ ] Products list shows with search and category filter working
-- [ ] Low stock products are highlighted in red with a badge
-- [ ] Add/Edit form validates all fields before submitting
-- [ ] IMEI uniqueness is enforced (backend + frontend error shown)
-- [ ] Pagination works correctly with 10 products per page default
-- [ ] Only admins can create/edit/delete (cashiers see read-only view)
+- [x] All 5 CRUD endpoints work and are tested in Postman
+- [x] Products list shows with search and category filter working
+- [x] Low stock products are highlighted in red with a badge
+- [x] Add/Edit form validates all fields before submitting
+- [x] IMEI uniqueness is enforced (backend + frontend error shown)
+- [x] Pagination works correctly with 10 products per page default
+- [x] Only admins can create/edit/delete (cashiers see read-only view)
 
 ---
 
