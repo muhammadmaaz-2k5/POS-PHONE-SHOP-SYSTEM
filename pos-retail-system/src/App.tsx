@@ -1,20 +1,23 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-// Pages (built in each sprint)
-// import SignInPage from './pages/auth/SignInPage';
-// import SignUpPage from './pages/auth/SignUpPage';
-// import DashboardPage from './pages/DashboardPage';
-// import POSPage from './pages/POSPage';
-// import ProductsPage from './pages/ProductsPage';
-// import CustomersPage from './pages/CustomersPage';
-// import SuppliersPage from './pages/SuppliersPage';
-// import PurchasesPage from './pages/PurchasesPage';
-// import ReportsPage from './pages/ReportsPage';
+// Pages
+import SignInPage from './pages/auth/SignInPage';
+import SignUpPage from './pages/auth/SignUpPage';
 
-// Layout (built in Sprint 1)
-// import MainLayout from './components/layout/MainLayout';
-// import ProtectedRoute from './components/auth/ProtectedRoute';
+// Layout
+import MainLayout from './components/layout/MainLayout';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+
+// Dashboard Placeholder
+function DashboardPage() {
+  return (
+    <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
+      <h2 className="text-xl font-semibold mb-4">Welcome to POS Phone Shop</h2>
+      <p className="text-gray-500">Your dashboard is ready. We will add metrics in Sprint 6.</p>
+    </div>
+  );
+}
 
 function App(): React.JSX.Element {
   return (
@@ -34,18 +37,23 @@ function App(): React.JSX.Element {
         }}
       />
       <Routes>
-        {/* Placeholder — routes are added as sprints complete */}
+        <Route path="/sign-in/*" element={<SignInPage />} />
+        <Route path="/sign-up/*" element={<SignUpPage />} />
+
+        {/* Protected Routes */}
         <Route
           path="/"
           element={
-            <div className="flex items-center justify-center min-h-screen bg-gray-950 text-white">
-              <div className="text-center">
-                <h1 className="text-4xl font-bold text-primary-400 mb-2">📱 Phone Shop POS</h1>
-                <p className="text-gray-400">Sprint 0 complete — setting up authentication in Sprint 1</p>
-              </div>
-            </div>
+            <ProtectedRoute>
+              <MainLayout />
+            </ProtectedRoute>
           }
-        />
+        >
+          <Route index element={<Navigate to="/dashboard" replace />} />
+          <Route path="dashboard" element={<DashboardPage />} />
+          {/* Sprints 2-6 Pages will be added here */}
+        </Route>
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>

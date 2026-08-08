@@ -6,6 +6,9 @@ import { rateLimit } from 'express-rate-limit';
 import { clerkMiddleware } from '@clerk/express';
 import errorHandler from './middleware/errorHandler';
 
+import authRoutes from './routes/authRoutes';
+import webhookRoutes from './routes/webhookRoutes';
+
 const app = express();
 
 // ─── Clerk (must be before routes) ───────────────────────────────────────────
@@ -18,6 +21,9 @@ app.use(cors({ origin: process.env.CLIENT_URL ?? '*', credentials: true }));
 // ─── Rate Limiting ───────────────────────────────────────────────────────────
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
 app.use('/api', limiter);
+
+// ─── Webhooks (Must be before Body Parser) ──────────────────────────────────
+app.use('/api/webhooks', webhookRoutes);
 
 // ─── Body Parser ─────────────────────────────────────────────────────────────
 app.use(express.json({ limit: '10mb' }));
@@ -39,7 +45,7 @@ app.get('/health', (_req: Request, res: Response): void => {
 });
 
 // ─── API Routes (added as sprints are completed) ──────────────────────────────
-// app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 // app.use('/api/users', userRoutes);
 // app.use('/api/products', productRoutes);
 // app.use('/api/customers', customerRoutes);

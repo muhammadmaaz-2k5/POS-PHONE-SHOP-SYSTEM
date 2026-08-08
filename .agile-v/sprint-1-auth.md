@@ -3,7 +3,7 @@
 > **Duration:** Week 2
 > **Goal:** Full authentication flow with Clerk — sign in, sign up, protected routes, user sync to PostgreSQL.
 > **Story Points:** 18
-> **Status:** 🔵 Planned
+> **Status:** ✅ Complete
 
 ---
 
@@ -21,11 +21,11 @@
 **So that** I don't need to manage passwords.
 
 #### Tasks:
-- [ ] Wrap `App.tsx` with `<ClerkProvider publishableKey={...}>`
-- [ ] Create `pages/SignInPage.tsx` → `<SignIn routing="path" path="/sign-in" />`
-- [ ] Create `pages/SignUpPage.tsx` → `<SignUp routing="path" path="/sign-up" />`
-- [ ] Configure Clerk redirect: after login → `/dashboard`
-- [ ] Create `components/ProtectedRoute.tsx`:
+- [x] Wrap `App.tsx` with `<ClerkProvider publishableKey={...}>`
+- [x] Create `pages/SignInPage.tsx` → `<SignIn routing="path" path="/sign-in" />`
+- [x] Create `pages/SignUpPage.tsx` → `<SignUp routing="path" path="/sign-up" />`
+- [x] Configure Clerk redirect: after login → `/dashboard`
+- [x] Create `components/ProtectedRoute.tsx`:
   ```tsx
   // Redirects to /sign-in if not authenticated
   const ProtectedRoute = ({ children }) => {
@@ -35,7 +35,7 @@
     return children;
   };
   ```
-- [ ] Set up React Router with routes:
+- [x] Set up React Router with routes:
   - `/sign-in` → `<SignInPage />`
   - `/sign-up` → `<SignUpPage />`
   - `/dashboard` → `<DashboardPage />` (protected)
@@ -49,11 +49,11 @@
 **So that** I can identify who I am and exit securely.
 
 #### Tasks:
-- [ ] Add `<UserButton />` to the sidebar/navbar (Clerk's built-in avatar + logout)
-- [ ] Display user name from `useUser()` hook in the sidebar
-- [ ] Show user role badge (Admin / Cashier) from Clerk `publicMetadata`
-- [ ] Redirect to `/sign-in` after logout (handled by Clerk automatically)
-- [ ] Create `hooks/useCurrentUser.ts`:
+- [x] Add `<UserButton />` to the sidebar/navbar (Clerk's built-in avatar + logout)
+- [x] Display user name from `useUser()` hook in the sidebar
+- [x] Show user role badge (Admin / Cashier) from Clerk `publicMetadata`
+- [x] Redirect to `/sign-in` after logout (handled by Clerk automatically)
+- [x] Create `hooks/useCurrentUser.ts`:
   ```ts
   // Returns { user, role, isAdmin }
   ```
@@ -66,21 +66,21 @@
 **So that** unauthenticated users cannot access any data.
 
 #### Tasks:
-- [ ] Install: `@clerk/express` (or `@clerk/backend`)
-- [ ] Create `middleware/clerkAuth.ts`:
+- [x] Install: `@clerk/express` (or `@clerk/backend`)
+- [x] Create `middleware/clerkAuth.ts`:
   ```ts
   import { clerkMiddleware, requireAuth } from '@clerk/express';
   // Verify session token on every /api/* route
   ```
-- [ ] Apply `clerkMiddleware()` globally in `app.ts`
-- [ ] Apply `requireAuth()` to all protected route groups
-- [ ] Create `middleware/requireRole.ts`:
+- [x] Apply `clerkMiddleware()` globally in `app.ts`
+- [x] Apply `requireAuth()` to all protected route groups
+- [x] Create `middleware/requireRole.ts`:
   ```ts
   // Check req.auth.sessionClaims.metadata.role
   // Throw 403 if role not in allowedRoles
   ```
-- [ ] Test: `GET /api/auth/me` → returns `{ clerkId, email, name, role }` for valid token
-- [ ] Test: Unauthenticated request → `401 Unauthorized`
+- [x] Test: `GET /api/auth/me` → returns `{ clerkId, email, name, role }` for valid token
+- [x] Test: Unauthenticated request → `401 Unauthorized`
 
 ---
 
@@ -90,16 +90,16 @@
 **So that** sales and purchases can reference a local user record.
 
 #### Tasks:
-- [ ] Create Clerk webhook in Clerk Dashboard: `user.created`, `user.updated`, `user.deleted`
-- [ ] Install: `svix` (for webhook signature verification)
-- [ ] Create `routes/webhookRoutes.ts` → `POST /api/webhooks/clerk`
-- [ ] Create `controllers/webhookController.ts`:
+- [x] Create Clerk webhook in Clerk Dashboard: `user.created`, `user.updated`, `user.deleted`
+- [x] Install: `svix` (for webhook signature verification)
+- [x] Create `routes/webhookRoutes.ts` → `POST /api/webhooks/clerk`
+- [x] Create `controllers/webhookController.ts`:
   ```ts
   // user.created  → prisma.user.create({ clerkUserId, name, email, role: 'cashier' })
   // user.updated  → prisma.user.update(...)
   // user.deleted  → prisma.user.delete(...)
   ```
-- [ ] Verify webhook signature using `svix`
+- [x] Verify webhook signature using `svix`
 - [ ] Test with Clerk Dashboard → "Test webhook" button
 - [ ] Verify user record appears in `prisma studio` after sign-up
 
@@ -111,14 +111,14 @@
 **So that** cashiers only access the POS while admins access everything.
 
 #### Tasks:
-- [ ] Define roles in Clerk `publicMetadata`: `{ role: "admin" | "cashier" }`
-- [ ] Document how to set role in Clerk Dashboard manually (for now)
-- [ ] `requireRole('admin')` middleware blocks cashier from:
+- [x] Define roles in Clerk `publicMetadata`: `{ role: "admin" | "cashier" }`
+- [x] Document how to set role in Clerk Dashboard manually (for now)
+- [x] `requireRole('admin')` middleware blocks cashier from:
   - Products management (delete)
   - Suppliers management
   - Reports
   - User management
-- [ ] Frontend: hide admin-only nav items based on role from `useCurrentUser()`
+- [x] Frontend: hide admin-only nav items based on role from `useCurrentUser()`
 
 ---
 
@@ -137,12 +137,12 @@
 
 ## ✅ Sprint 1 Acceptance Criteria
 
-- [ ] Unauthenticated users are redirected to `/sign-in`
-- [ ] Authenticated users land on `/dashboard` after login
-- [ ] New sign-up creates a record in `User` table in PostgreSQL
-- [ ] `GET /api/auth/me` requires valid Clerk session token
-- [ ] Admin role is enforced on protected routes (backend 403 + frontend hidden UI)
-- [ ] `<UserButton />` shows user avatar and logout option
+- [x] Unauthenticated users are redirected to `/sign-in`
+- [x] Authenticated users land on `/dashboard` after login
+- [x] New sign-up creates a record in `User` table in PostgreSQL
+- [x] `GET /api/auth/me` requires valid Clerk session token
+- [x] Admin role is enforced on protected routes (backend 403 + frontend hidden UI)
+- [x] `<UserButton />` shows user avatar and logout option
 
 ---
 
