@@ -4,7 +4,7 @@ export interface User {
   clerkUserId: string;
   name: string;
   email: string;
-  role: 'admin' | 'cashier';
+  role: 'admin' | 'cashier' | 'customer';
   createdAt: string;
   updatedAt: string;
 }
