@@ -9,6 +9,8 @@ import errorHandler from './middleware/errorHandler';
 import authRoutes from './routes/authRoutes';
 import webhookRoutes from './routes/webhookRoutes';
 import productRoutes from './routes/productRoutes';
+import customerRoutes from './routes/customerRoutes';
+import supplierRoutes from './routes/supplierRoutes';
 
 const app = express();
 
@@ -49,8 +51,8 @@ app.get('/health', (_req: Request, res: Response): void => {
 app.use('/api/auth', authRoutes);
 // app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
-// app.use('/api/customers', customerRoutes);
-// app.use('/api/suppliers', supplierRoutes);
+app.use('/api/customers', customerRoutes);
+app.use('/api/suppliers', supplierRoutes);
 // app.use('/api/sales', saleRoutes);
 // app.use('/api/purchases', purchaseRoutes);
 // app.use('/api/analytics', analyticsRoutes);

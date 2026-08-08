@@ -27,8 +27,8 @@
 | S0     | 🏗️ Foundation & Setup          | Repo, DB, Prisma, Clerk config     | ✅ Complete |
 | S1     | 🔐 Authentication               | Clerk, roles, user sync to DB      | ✅ Complete |
 | S2     | 📦 Products & Inventory         | CRUD, IMEI, categories, stock      | ✅ Complete |
-| S3     | 👥 Customers & Suppliers        | CRUD, search, purchase history     | 🟡 Next    |
-| S4     | 🛒 POS / Sales Screen           | Cashier UI, cart, checkout         | 🔵 Planned |
+| S3     | 👥 Customers & Suppliers        | CRUD, search, purchase history     | ✅ Complete |
+| S4     | 🛒 POS / Sales Screen           | Cashier UI, cart, checkout         | 🟡 Next    |
 | S5     | 📥 Purchases / Restocking       | Supplier purchases, stock increase | 🔵 Planned |
 | S6     | 📊 Dashboard & Reports          | Metrics, charts, analytics         | 🔵 Planned |
 | S7     | 🚀 Polish & Deployment          | Testing, UX, Docker, deploy        | 🔵 Planned |

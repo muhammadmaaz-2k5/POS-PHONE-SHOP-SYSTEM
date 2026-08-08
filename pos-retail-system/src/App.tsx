@@ -5,6 +5,9 @@ import { Toaster } from 'react-hot-toast';
 import SignInPage from './pages/auth/SignInPage';
 import SignUpPage from './pages/auth/SignUpPage';
 import ProductsPage from './pages/ProductsPage';
+import CustomersPage from './pages/CustomersPage';
+import SuppliersPage from './pages/SuppliersPage';
+
 
 // Layout
 import MainLayout from './components/layout/MainLayout';
@@ -53,7 +56,9 @@ function App(): React.JSX.Element {
           <Route index element={<Navigate to="/dashboard" replace />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="products" element={<ProductsPage />} />
-          {/* Sprints 3-6 Pages will be added here */}
+          <Route path="customers" element={<CustomersPage />} />
+          <Route path="suppliers" element={<SuppliersPage />} />
+          {/* Sprints 4-6 Pages will be added here */}
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

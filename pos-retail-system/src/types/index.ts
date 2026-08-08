@@ -37,6 +37,9 @@ export interface Customer {
   address: string | null;
   createdAt: string;
   updatedAt: string;
+  _count?: {
+    sales: number;
+  };
 }
 
 // ─── Supplier ─────────────────────────────────────────────────────────────────
@@ -49,6 +52,9 @@ export interface Supplier {
   company: string | null;
   createdAt: string;
   updatedAt: string;
+  _count?: {
+    purchases: number;
+  };
 }
 
 // ─── Sale ─────────────────────────────────────────────────────────────────────

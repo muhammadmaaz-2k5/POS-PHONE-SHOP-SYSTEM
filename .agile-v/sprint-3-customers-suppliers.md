@@ -3,7 +3,7 @@
 > **Duration:** Week 4
 > **Goal:** Full CRUD for customers and suppliers, with customer purchase history linked to sales.
 > **Story Points:** 16
-> **Status:** 🔵 Planned
+> **Status:** ✅ Complete
 
 ---
 
@@ -50,8 +50,8 @@ model Supplier {
 **So that** customers can be linked to sales.
 
 #### Tasks:
-- [ ] Create `routes/customerRoutes.ts`
-- [ ] Create `controllers/customerController.ts`:
+- [x] Create `routes/customerRoutes.ts`
+- [x] Create `controllers/customerController.ts`:
   ```
   GET    /api/customers           → getAllCustomers (search, pagination)
   GET    /api/customers/:id       → getCustomerById
@@ -60,10 +60,10 @@ model Supplier {
   PUT    /api/customers/:id       → updateCustomer
   DELETE /api/customers/:id       → deleteCustomer
   ```
-- [ ] Search by name, phone, email
-- [ ] `getCustomerPurchaseHistory` → returns all `Sale` records for customer with items
-- [ ] Validate: name required, phone/email must be unique if provided
-- [ ] Test all endpoints in Postman
+- [x] Search by name, phone, email
+- [x] `getCustomerPurchaseHistory` → returns all `Sale` records for customer with items
+- [x] Validate: name required, phone/email must be unique if provided
+- [x] Test all endpoints in Postman
 
 ---
 
@@ -73,8 +73,8 @@ model Supplier {
 **So that** purchases can reference a supplier.
 
 #### Tasks:
-- [ ] Create `routes/supplierRoutes.ts`
-- [ ] Create `controllers/supplierController.ts`:
+- [x] Create `routes/supplierRoutes.ts`
+- [x] Create `controllers/supplierController.ts`:
   ```
   GET    /api/suppliers     → getAllSuppliers (search, pagination)
   GET    /api/suppliers/:id → getSupplierById
@@ -82,9 +82,9 @@ model Supplier {
   PUT    /api/suppliers/:id → updateSupplier  [Admin only]
   DELETE /api/suppliers/:id → deleteSupplier  [Admin only]
   ```
-- [ ] Validate: name required
-- [ ] Apply `requireRole('admin')` to POST, PUT, DELETE
-- [ ] Test in Postman
+- [x] Validate: name required
+- [x] Apply `requireRole('admin')` to POST, PUT, DELETE
+- [x] Test in Postman
 
 ---
 
@@ -94,19 +94,19 @@ model Supplier {
 **So that** I can look up a customer during a sale.
 
 #### Tasks:
-- [ ] Create `pages/CustomersPage.tsx`
-- [ ] Build `components/customers/CustomersTable.tsx`:
+- [x] Create `pages/CustomersPage.tsx`
+- [x] Build `components/customers/CustomersTable.tsx`:
   - Columns: Name, Phone, Email, Address, Total Purchases, Actions
   - "Total Purchases" shows count of sales
-- [ ] Customer search (by name, phone, email) — debounced
-- [ ] `components/customers/CustomerFormModal.tsx`:
+- [x] Customer search (by name, phone, email) — debounced
+- [x] `components/customers/CustomerFormModal.tsx`:
   - Fields: Name *, Phone, Email, Address
   - Inline validation
-- [ ] `components/customers/CustomerDetailModal.tsx`:
+- [x] `components/customers/CustomerDetailModal.tsx`:
   - Shows customer info + purchase history table
   - Purchase history: Invoice #, Date, Items count, Total, Payment method
-- [ ] Create Zustand store `useCustomerStore`
-- [ ] Pagination
+- [x] Create Zustand store `useCustomerStore`
+- [x] Pagination
 
 ---
 
@@ -116,14 +116,14 @@ model Supplier {
 **So that** I can track where stock is purchased from.
 
 #### Tasks:
-- [ ] Create `pages/SuppliersPage.tsx`
-- [ ] Build `components/suppliers/SuppliersTable.tsx`:
+- [x] Create `pages/SuppliersPage.tsx`
+- [x] Build `components/suppliers/SuppliersTable.tsx`:
   - Columns: Name, Company, Phone, Email, Address, Total Purchases, Actions
-- [ ] Supplier search (by name, company)
-- [ ] `components/suppliers/SupplierFormModal.tsx`:
+- [x] Supplier search (by name, company)
+- [x] `components/suppliers/SupplierFormModal.tsx`:
   - Fields: Name *, Company, Phone, Email, Address
-- [ ] Only admins see the Add/Edit/Delete buttons
-- [ ] Create Zustand store `useSupplierStore`
+- [x] Only admins see the Add/Edit/Delete buttons
+- [x] Create Zustand store `useSupplierStore`
 
 ---
 
@@ -143,12 +143,12 @@ model Supplier {
 
 ## ✅ Sprint 3 Acceptance Criteria
 
-- [ ] All customer API endpoints work and are Postman tested
-- [ ] All supplier API endpoints work and are Postman tested
-- [ ] Customer search returns results filtered by name, phone, email
-- [ ] Clicking a customer shows their full purchase history
-- [ ] Suppliers are only editable by admins (UI hides buttons + API returns 403)
-- [ ] Deleting a customer with existing sales → returns 400 with clear error message
+- [x] All customer API endpoints work and are Postman tested
+- [x] All supplier API endpoints work and are Postman tested
+- [x] Customer search returns results filtered by name, phone, email
+- [x] Clicking a customer shows their full purchase history
+- [x] Suppliers are only editable by admins (UI hides buttons + API returns 403)
+- [x] Deleting a customer with existing sales → returns 400 with clear error message
 
 ---
 
