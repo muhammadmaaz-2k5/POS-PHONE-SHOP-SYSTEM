@@ -57,9 +57,4 @@
   .badge-gray    { @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700; }
 }
 
-/* Print styles for receipt */
-@media print {
-  body * { visibility: hidden; }
-  #receipt, #receipt * { visibility: visible; }
-  #receipt { position: absolute; left: 0; top: 0; width: 100%; }
-}
+

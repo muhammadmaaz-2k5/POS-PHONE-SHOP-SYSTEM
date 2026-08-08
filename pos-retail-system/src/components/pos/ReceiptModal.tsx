@@ -4,6 +4,13 @@ import { Sale } from '../../types';
 // Inject print styles globally when this component is mounted
 const printStyles = `
   @media print {
+    @page {
+      margin: 0;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+    }
     body * {
       visibility: hidden;
     }
@@ -16,8 +23,9 @@ const printStyles = `
       top: 0;
       width: 80mm; /* Standard thermal receipt width */
       margin: 0;
-      padding: 0;
-      box-shadow: none;
+      padding: 5mm;
+      box-shadow: none !important;
+      border: none !important;
       color: black;
     }
     /* Hide scrollbars during print */
