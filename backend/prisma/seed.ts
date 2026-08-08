@@ -163,6 +163,33 @@ const DUMMY_PRODUCTS = [
   }
 ];
 
+const DUMMY_CUSTOMERS = [
+  {
+    name: 'John Doe',
+    phone: '555-0101',
+    email: 'john@example.com',
+    address: '123 Main St, Springfield',
+  },
+  {
+    name: 'Jane Smith',
+    phone: '555-0102',
+    email: 'jane@example.com',
+    address: '456 Oak Ave, Metropolis',
+  },
+  {
+    name: 'Alice Johnson',
+    phone: '555-0103',
+    email: 'alice@example.com',
+    address: '789 Pine Rd, Gotham',
+  },
+  {
+    name: 'Bob Brown',
+    phone: '555-0104',
+    email: 'bob@example.com',
+    address: '321 Elm St, Star City',
+  }
+];
+
 async function main() {
   console.log('🌱 Starting database seed...');
   
@@ -194,6 +221,22 @@ async function main() {
       console.log(`✅ Success: ${data.name}`);
     } catch (error) {
       console.error(`❌ Failed to seed ${data.name}:`, error);
+    }
+  }
+
+  console.log('👥 Seeding customers...');
+  for (const customer of DUMMY_CUSTOMERS) {
+    const exists = await prisma.customer.findFirst({ where: { phone: customer.phone } });
+    if (exists) {
+      console.log(`Customer ${customer.name} already exists. Skipping.`);
+      continue;
+    }
+    
+    try {
+      await prisma.customer.create({ data: customer });
+      console.log(`✅ Success: ${customer.name}`);
+    } catch (error) {
+      console.error(`❌ Failed to seed ${customer.name}:`, error);
     }
   }
 
