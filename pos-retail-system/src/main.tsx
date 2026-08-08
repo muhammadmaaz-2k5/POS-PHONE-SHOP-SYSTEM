@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ClerkProvider } from '@clerk/clerk-react';
+import AxiosInterceptor from './components/auth/AxiosInterceptor';
 import './index.css';
 import App from './App.tsx';
 
@@ -16,7 +17,9 @@ if (!rootElement) throw new Error('Root element not found');
 createRoot(rootElement).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <App />
+      <AxiosInterceptor>
+        <App />
+      </AxiosInterceptor>
     </ClerkProvider>
   </StrictMode>
 );
