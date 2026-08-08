@@ -63,6 +63,7 @@ function App(): React.JSX.Element {
           }
         >
           <Route index element={<IndexRoute />} />
+          <Route path="dashboard" element={<IndexRoute />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="customers" element={<CustomersPage />} />
           <Route path="suppliers" element={<SuppliersPage />} />
