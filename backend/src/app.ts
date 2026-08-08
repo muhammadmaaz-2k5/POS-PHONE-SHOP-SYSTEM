@@ -12,6 +12,7 @@ import productRoutes from './routes/productRoutes';
 import customerRoutes from './routes/customerRoutes';
 import supplierRoutes from './routes/supplierRoutes';
 import saleRoutes from './routes/saleRoutes';
+import purchaseRoutes from './routes/purchaseRoutes';
 
 
 const app = express();
@@ -56,7 +57,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/suppliers', supplierRoutes);
 app.use('/api/sales', saleRoutes);
-// app.use('/api/purchases', purchaseRoutes);
+app.use('/api/purchases', purchaseRoutes);
 // app.use('/api/analytics', analyticsRoutes);
 
 // ─── 404 ─────────────────────────────────────────────────────────────────────

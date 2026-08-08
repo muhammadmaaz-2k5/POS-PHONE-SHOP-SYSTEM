@@ -111,7 +111,11 @@ export interface Purchase {
   items: PurchaseItem[];
   createdAt: string;
   updatedAt: string;
+  _count?: {
+    items: number;
+  };
 }
+
 
 // ─── API Response ─────────────────────────────────────────────────────────────
 export interface ApiResponse<T = null> {

@@ -3,7 +3,7 @@
 > **Duration:** Week 6
 > **Goal:** Allow admins to record stock purchases from suppliers, automatically incrementing product inventory.
 > **Story Points:** 18
-> **Status:** 🔵 Planned
+> **Status:** ✅ Complete
 
 ---
 
@@ -50,14 +50,14 @@ model PurchaseItem {
 **So that** restocking from suppliers is tracked.
 
 #### Tasks:
-- [ ] Create `routes/purchaseRoutes.ts`
-- [ ] Create `controllers/purchaseController.ts`:
+- [x] Create `routes/purchaseRoutes.ts`
+- [x] Create `controllers/purchaseController.ts`:
   ```
   GET  /api/purchases      → getAllPurchases (date range, supplier filter, pagination)
   GET  /api/purchases/:id  → getPurchaseById (with items + supplier + user)
   POST /api/purchases      → createPurchase  [Admin only]
   ```
-- [ ] `createPurchase` Prisma transaction:
+- [x] `createPurchase` Prisma transaction:
   ```ts
   // 1. Validate all products exist
   // 2. Calculate item subtotals and total
@@ -67,9 +67,9 @@ model PurchaseItem {
   //    ])
   // 4. Return full purchase with items
   ```
-- [ ] Apply `requireRole('admin')` to all purchase mutations
-- [ ] Validate: supplierId required, at least 1 item, quantity > 0, price > 0
-- [ ] Test in Postman
+- [x] Apply `requireRole('admin')` to all purchase mutations
+- [x] Validate: supplierId required, at least 1 item, quantity > 0, price > 0
+- [x] Test in Postman
 
 ---
 
@@ -79,19 +79,19 @@ model PurchaseItem {
 **So that** I can track spending and restocking history.
 
 #### Tasks:
-- [ ] Create `pages/PurchasesPage.tsx`
-- [ ] Build `components/purchases/PurchasesTable.tsx`:
+- [x] Create `pages/PurchasesPage.tsx`
+- [x] Build `components/purchases/PurchasesTable.tsx`:
   - Columns: Invoice Date, Supplier, Items Count, Total, Recorded By, Actions (View)
   - Formatted date/time
-- [ ] Filter by date range (from/to date pickers)
-- [ ] Filter by supplier dropdown
-- [ ] `components/purchases/PurchaseDetailModal.tsx`:
+- [x] Filter by date range (from/to date pickers)
+- [x] Filter by supplier dropdown
+- [x] `components/purchases/PurchaseDetailModal.tsx`:
   - Supplier info
   - Purchase date & recorded by
   - Table: Product | Qty | Unit Price | Subtotal
   - Total at bottom
-- [ ] Pagination
-- [ ] Create Zustand store `usePurchaseStore`
+- [x] Pagination
+- [x] Create Zustand store `usePurchaseStore`
 
 ---
 
@@ -101,12 +101,12 @@ model PurchaseItem {
 **So that** I can log what I bought, from whom, and at what price.
 
 #### Tasks:
-- [ ] Create `pages/CreatePurchasePage.tsx` (full page, not modal — complex form)
-- [ ] Section 1 — Purchase Info:
+- [x] Create `pages/CreatePurchasePage.tsx` (full page, not modal — complex form)
+- [x] Section 1 — Purchase Info:
   - Supplier select (searchable dropdown from `/api/suppliers`)
   - Date (defaults to today)
   - Notes (textarea, optional)
-- [ ] Section 2 — Items Table (dynamic rows):
+- [x] Section 2 — Items Table (dynamic rows):
   ```
   | Product (searchable) | Qty | Unit Cost | Subtotal |  [×] |
   | Product (searchable) | Qty | Unit Cost | Subtotal |  [×] |
@@ -116,11 +116,11 @@ model PurchaseItem {
   - Qty: number input, min 1
   - Unit Cost: number input (purchase price, may differ from stored purchasePrice)
   - Subtotal: auto-calculated (qty × unit cost), read-only
-- [ ] Running Total at bottom
-- [ ] "Save Purchase" → POST to API → show success → navigate to `/purchases`
-- [ ] "Cancel" → navigate back with confirm dialog if items exist
-- [ ] Validate: at least 1 item, all fields required per row
-- [ ] Handle API error (e.g. product not found) with form-level error
+- [x] Running Total at bottom
+- [x] "Save Purchase" → POST to API → show success → navigate to `/purchases`
+- [x] "Cancel" → navigate back with confirm dialog if items exist
+- [x] Validate: at least 1 item, all fields required per row
+- [x] Handle API error (e.g. product not found) with form-level error
 
 ---
 
@@ -152,12 +152,12 @@ model PurchaseItem {
 
 ## ✅ Sprint 5 Acceptance Criteria
 
-- [ ] Admin can create a purchase with multiple products from a supplier
-- [ ] Stock is correctly incremented for each product in the purchase
-- [ ] Purchase list shows all historical purchases with filters
-- [ ] Purchase detail view shows all items with prices
-- [ ] Cashier role cannot access purchase creation (403 + hidden UI)
-- [ ] Creating purchase with invalid product ID returns proper error
+- [x] Admin can create a purchase with multiple products from a supplier
+- [x] Stock is correctly incremented for each product in the purchase
+- [x] Purchase list shows all historical purchases with filters
+- [x] Purchase detail view shows all items with prices
+- [x] Cashier role cannot access purchase creation (403 + hidden UI)
+- [x] Creating purchase with invalid product ID returns proper error
 
 ---
 

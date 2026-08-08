@@ -8,6 +8,9 @@ import ProductsPage from './pages/ProductsPage';
 import CustomersPage from './pages/CustomersPage';
 import SuppliersPage from './pages/SuppliersPage';
 import POSPage from './pages/POSPage';
+import PurchasesPage from './pages/PurchasesPage';
+import CreatePurchasePage from './pages/CreatePurchasePage';
+
 
 
 // Layout
@@ -59,8 +62,10 @@ function App(): React.JSX.Element {
           <Route path="products" element={<ProductsPage />} />
           <Route path="customers" element={<CustomersPage />} />
           <Route path="suppliers" element={<SuppliersPage />} />
+          <Route path="purchases" element={<PurchasesPage />} />
+          <Route path="purchases/new" element={<CreatePurchasePage />} />
           <Route path="pos" element={<POSPage />} />
-          {/* Sprints 5-6 Pages will be added here */}
+          {/* Sprints 6 Pages will be added here */}
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
