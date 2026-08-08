@@ -4,6 +4,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { rateLimit } from 'express-rate-limit';
+import { clerkMiddleware } from '@clerk/express';
 import { mockAuthMiddleware } from './middleware/auth';
 import errorHandler from './middleware/errorHandler';
 
@@ -23,6 +24,9 @@ const app = express();
 // ─── Security & CORS (Must be FIRST) ─────────────────────────────────────────
 app.use(helmet());
 app.use(cors({ origin: true, credentials: true }));
+
+// ─── Clerk Auth ──────────────────────────────────────────────────────────────
+app.use(clerkMiddleware());
 
 // ─── Mock Auth ───────────────────────────────────────────────────────────────
 app.use(mockAuthMiddleware);

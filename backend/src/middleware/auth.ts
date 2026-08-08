@@ -3,7 +3,13 @@ import ApiError from '../utils/ApiError';
 import prisma from '../config/prisma';
 
 export const mockAuthMiddleware = async (req: Request, _res: Response, next: NextFunction): Promise<void> => {
-  const role = (req.headers['x-mock-role'] as string) || 'admin';
+  const role = req.headers['x-mock-role'] as string;
+  
+  if (!role) {
+    // If no mock role is provided, assume it's a real Clerk request and skip mocking.
+    return next();
+  }
+
   const clerkUserId = `mock_clerk_${role}`;
   
   (req as any).auth = {
@@ -41,7 +47,10 @@ export const protect = (req: Request, _res: Response, next: NextFunction): void 
 export const authorize = (...roles: string[]) => {
   return (req: Request, _res: Response, next: NextFunction): void => {
     const auth = (req as any).auth;
-    const role = auth?.sessionClaims?.metadata?.role ?? 'cashier';
+    // For real Clerk auth, the role is on sessionClaims.metadata.role or publicMetadata
+    const clerkRole = auth?.sessionClaims?.metadata?.role || auth?.sessionClaims?.publicMetadata?.role;
+    const role = clerkRole ?? 'cashier';
+    
     if (!roles.includes(role)) {
       return next(
         new ApiError(`Role '${role}' is not authorized to access this route`, 403)

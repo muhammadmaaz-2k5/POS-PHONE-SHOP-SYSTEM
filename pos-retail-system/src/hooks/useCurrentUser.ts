@@ -1,3 +1,5 @@
+import { useUser } from '@clerk/clerk-react';
+
 interface CurrentUser {
   id: string;
   name: string;
@@ -7,19 +9,38 @@ interface CurrentUser {
 }
 
 export function useCurrentUser(): { user: CurrentUser | null; isLoaded: boolean } {
-  const role = (localStorage.getItem('mock_role') as 'admin' | 'cashier') || null;
+  const { user: clerkUser, isLoaded: clerkLoaded } = useUser();
+  const mockRole = (localStorage.getItem('mock_role') as 'admin' | 'cashier') || null;
 
-  if (!role) {
-    return { user: null, isLoaded: true };
+  if (!mockRole && !clerkLoaded) {
+    return { user: null, isLoaded: false };
   }
 
-  const user: CurrentUser = {
-    id: `mock_clerk_${role}`,
-    name: role === 'admin' ? 'Admin User' : 'Cashier User',
-    email: `mock_${role}@example.com`,
-    role,
-    isAdmin: role === 'admin',
-  };
+  if (mockRole) {
+    return {
+      user: {
+        id: `mock_clerk_${mockRole}`,
+        name: mockRole === 'admin' ? 'Admin User' : 'Cashier User',
+        email: `mock_${mockRole}@example.com`,
+        role: mockRole,
+        isAdmin: mockRole === 'admin',
+      },
+      isLoaded: true,
+    };
+  }
 
-  return { user, isLoaded: true };
+  if (clerkUser) {
+    return {
+      user: {
+        id: clerkUser.id,
+        name: clerkUser.fullName || '',
+        email: clerkUser.primaryEmailAddress?.emailAddress || '',
+        role: clerkUser.publicMetadata?.role as 'admin' | 'cashier' || 'cashier',
+        isAdmin: clerkUser.publicMetadata?.role === 'admin',
+      },
+      isLoaded: true,
+    };
+  }
+
+  return { user: null, isLoaded: true };
 }

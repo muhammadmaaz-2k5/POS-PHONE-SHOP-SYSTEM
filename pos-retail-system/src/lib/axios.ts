@@ -7,11 +7,25 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 });
 
-// ─── Request interceptor — attach Mock Role ───────────────────────────────────
+// ─── Request interceptor — attach Auth Token / Mock Role ──────────────────────
 api.interceptors.request.use(async (config) => {
   const role = localStorage.getItem('mock_role');
   if (role) {
     config.headers['x-mock-role'] = role;
+  } else {
+    // If no mock role, try to get Clerk token
+    try {
+      // @ts-ignore - window.Clerk is injected by ClerkProvider
+      if (window.Clerk && window.Clerk.session) {
+        // @ts-ignore
+        const token = await window.Clerk.session.getToken();
+        if (token) {
+          config.headers['Authorization'] = `Bearer ${token}`;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to get Clerk token', e);
+    }
   }
   return config;
 });
