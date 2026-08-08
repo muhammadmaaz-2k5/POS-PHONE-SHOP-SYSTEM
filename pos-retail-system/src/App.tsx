@@ -1,5 +1,6 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { useCurrentUser } from './hooks/useCurrentUser';
 
 // Pages
 import SignInPage from './pages/auth/SignInPage';
@@ -21,6 +22,14 @@ import NotFoundPage from './pages/NotFoundPage';
 import MainLayout from './components/layout/MainLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import ErrorBoundary from './components/layout/ErrorBoundary';
+
+const IndexRoute = () => {
+  const { user } = useCurrentUser();
+  if (user?.role === 'cashier') {
+    return <Navigate to="/pos" replace />;
+  }
+  return <DashboardPage />;
+};
 
 function App(): React.JSX.Element {
   return (
@@ -53,7 +62,7 @@ function App(): React.JSX.Element {
             </ProtectedRoute>
           }
         >
-          <Route index element={<DashboardPage />} />
+          <Route index element={<IndexRoute />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="customers" element={<CustomersPage />} />
           <Route path="suppliers" element={<SuppliersPage />} />

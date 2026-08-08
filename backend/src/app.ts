@@ -20,12 +20,12 @@ import analyticsRoutes from './routes/analyticsRoutes';
 
 const app = express();
 
-// ─── Mock Auth (must be before routes) ───────────────────────────────────────────
-app.use(mockAuthMiddleware);
-
-// ─── Security ────────────────────────────────────────────────────────────────
+// ─── Security & CORS (Must be FIRST) ─────────────────────────────────────────
 app.use(helmet());
 app.use(cors({ origin: true, credentials: true }));
+
+// ─── Mock Auth ───────────────────────────────────────────────────────────────
+app.use(mockAuthMiddleware);
 
 // ─── Rate Limiting ───────────────────────────────────────────────────────────
 const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 });
