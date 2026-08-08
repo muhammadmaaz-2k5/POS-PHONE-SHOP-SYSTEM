@@ -1,6 +1,5 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { useCurrentUser } from './hooks/useCurrentUser';
 
 // Pages
 import SignInPage from './pages/auth/SignInPage';
