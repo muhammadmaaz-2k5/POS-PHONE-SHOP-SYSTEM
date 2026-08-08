@@ -3,7 +3,7 @@
 > **Duration:** Week 7
 > **Goal:** Build the main dashboard with live KPIs and a full reports section with charts and export.
 > **Story Points:** 20
-> **Status:** 🔵 Planned
+> **Status:** ✅ Complete
 
 ---
 
@@ -21,8 +21,8 @@
 **So that** the dashboard and reports render with accurate numbers.
 
 #### Tasks:
-- [ ] Create `routes/analyticsRoutes.ts`
-- [ ] Create `controllers/analyticsController.ts`:
+- [x] Create `routes/analyticsRoutes.ts`
+- [x] Create `controllers/analyticsController.ts`:
   ```
   GET /api/analytics/dashboard         → today's KPIs
   GET /api/analytics/sales/daily       → daily sales (last 30 days)
@@ -32,7 +32,7 @@
   GET /api/analytics/inventory         → full inventory report
   GET /api/analytics/low-stock         → products below minimum stock
   ```
-- [ ] Dashboard endpoint response:
+- [x] Dashboard endpoint response:
   ```ts
   {
     todaySales: number,       // sum of today's sales total
@@ -44,9 +44,9 @@
     recentSales: Sale[],      // last 5 sales with customer + items
   }
   ```
-- [ ] Use Prisma `groupBy`, `aggregate`, and `_sum` for efficient queries
-- [ ] Apply date filtering using `gte`/`lte` on `createdAt`
-- [ ] Apply `requireRole('admin')` to all analytics endpoints
+- [x] Use Prisma `groupBy`, `aggregate`, and `_sum` for efficient queries
+- [x] Apply date filtering using `gte`/`lte` on `createdAt`
+- [x] Apply `requireRole('admin')` to all analytics endpoints
 
 ---
 
@@ -56,8 +56,8 @@
 **So that** I can assess the shop's performance at a glance.
 
 #### Tasks:
-- [ ] Create `pages/DashboardPage.tsx`
-- [ ] KPI Cards row (`components/dashboard/KPICard.tsx`):
+- [x] Create `pages/DashboardPage.tsx`
+- [x] KPI Cards row (`components/dashboard/KPICard.tsx`):
   ```
   ┌──────────────┐ ┌──────────────┐ ┌──────────────┐ ┌──────────────┐
   │ 💰 Today     │ │ 📈 Profit    │ │ 🛒 Orders    │ │ 📦 Products  │
@@ -70,17 +70,17 @@
   │ 12           │ │ 234          │
   └──────────────┘ └──────────────┘
   ```
-- [ ] Each KPI card: icon, label, value (large), trend arrow vs yesterday
-- [ ] Sales Chart (`components/dashboard/SalesChart.tsx`):
+- [x] Each KPI card: icon, label, value (large), trend arrow vs yesterday
+- [x] Sales Chart (`components/dashboard/SalesChart.tsx`):
   - Area chart: last 7 days daily sales
   - Built with `recharts` AreaChart
-- [ ] Recent Sales table (`components/dashboard/RecentSalesTable.tsx`):
+- [x] Recent Sales table (`components/dashboard/RecentSalesTable.tsx`):
   - Last 5 sales: Invoice, Customer, Items, Total, Payment, Time
   - "View All" → navigates to `/sales`
-- [ ] Low Stock Alert (`components/dashboard/LowStockAlert.tsx`):
+- [x] Low Stock Alert (`components/dashboard/LowStockAlert.tsx`):
   - Collapsible list of low stock products
   - "Order Stock" → navigates to `/purchases/create`
-- [ ] Auto-refresh every 60 seconds
+- [x] Auto-refresh every 60 seconds
 
 ---
 
@@ -90,7 +90,7 @@
 **So that** I can analyze sales performance and make business decisions.
 
 #### Tasks:
-- [ ] Create `pages/ReportsPage.tsx` with tab navigation:
+- [x] Create `pages/ReportsPage.tsx` with tab navigation:
   - 📅 Daily Sales
   - 📆 Monthly Sales
   - 🏆 Top Products
@@ -99,32 +99,32 @@
   - ⚠️ Low Stock
 
 #### Daily Sales Tab:
-- [ ] Date range picker (from → to)
-- [ ] Bar chart: daily revenue (recharts BarChart)
-- [ ] Summary table: Date | Orders | Revenue | Profit
+- [x] Date range picker (from → to)
+- [x] Bar chart: daily revenue (recharts BarChart)
+- [x] Summary table: Date | Orders | Revenue | Profit
 
 #### Monthly Sales Tab:
-- [ ] Year selector
-- [ ] Line chart: monthly revenue over 12 months
-- [ ] Summary table: Month | Orders | Revenue | Profit
+- [x] Year selector
+- [x] Line chart: monthly revenue over 12 months
+- [x] Summary table: Month | Orders | Revenue | Profit
 
 #### Top Products Tab:
-- [ ] Date range filter
-- [ ] Horizontal bar chart: top 10 products by revenue
-- [ ] Table: Product | Units Sold | Revenue | Profit
+- [x] Date range filter
+- [x] Horizontal bar chart: top 10 products by revenue
+- [x] Table: Product | Units Sold | Revenue | Profit
 
 #### By Cashier Tab:
-- [ ] Date range filter
-- [ ] Pie chart: sales distribution by cashier
-- [ ] Table: Cashier | Orders | Revenue
+- [x] Date range filter
+- [x] Pie chart: sales distribution by cashier
+- [x] Table: Cashier | Orders | Revenue
 
 #### Inventory Tab:
-- [ ] Full product list with current stock vs minimum stock
-- [ ] Progress bars for stock levels
+- [x] Full product list with current stock vs minimum stock
+- [x] Progress bars for stock levels
 
 #### Low Stock Tab:
-- [ ] All products where `stock ≤ minimumStock`
-- [ ] "Create Purchase Order" quick action button
+- [x] All products where `stock ≤ minimumStock`
+- [x] "Create Purchase Order" quick action button
 
 ---
 
@@ -134,11 +134,11 @@
 **So that** I can share them or keep records offline.
 
 #### Tasks:
-- [ ] "Export CSV" button on each report tab
+- [x] "Export CSV" button on each report tab
   - Install: `papaparse` for CSV generation
   - Download as `report-{type}-{date}.csv`
-- [ ] "Print" button → print-specific CSS for each report tab
-- [ ] Sales invoices list: "Download PDF" (use `window.print()` with receipt layout)
+- [x] "Print" button → print-specific CSS for each report tab
+- [x] Sales invoices list: "Download PDF" (use `window.print()` with receipt layout)
 
 ---
 
@@ -159,14 +159,14 @@
 
 ## ✅ Sprint 6 Acceptance Criteria
 
-- [ ] Dashboard shows correct today's sales, profit, orders on page load
-- [ ] Dashboard KPIs update every 60 seconds automatically
-- [ ] Sales area chart renders correctly with last 7 days data
-- [ ] Recent sales table shows 5 most recent transactions
-- [ ] Reports page has all 6 tabs working with correct data
-- [ ] Daily sales bar chart shows correct data for selected date range
-- [ ] CSV export downloads a valid file with correct data
-- [ ] Low stock alert links to purchase creation
+- [x] Dashboard shows correct today's sales, profit, orders on page load
+- [x] Dashboard KPIs update every 60 seconds automatically
+- [x] Sales area chart renders correctly with last 7 days data
+- [x] Recent sales table shows 5 most recent transactions
+- [x] Reports page has all 6 tabs working with correct data
+- [x] Daily sales bar chart shows correct data for selected date range
+- [x] CSV export downloads a valid file with correct data
+- [x] Low stock alert links to purchase creation
 
 ---
 

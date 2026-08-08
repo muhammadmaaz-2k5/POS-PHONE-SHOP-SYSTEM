@@ -10,22 +10,15 @@ import SuppliersPage from './pages/SuppliersPage';
 import POSPage from './pages/POSPage';
 import PurchasesPage from './pages/PurchasesPage';
 import CreatePurchasePage from './pages/CreatePurchasePage';
+import DashboardPage from './pages/DashboardPage';
+import ReportsPage from './pages/ReportsPage';
+
 
 
 
 // Layout
 import MainLayout from './components/layout/MainLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
-
-// Dashboard Placeholder
-function DashboardPage() {
-  return (
-    <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
-      <h2 className="text-xl font-semibold mb-4">Welcome to POS Phone Shop</h2>
-      <p className="text-gray-500">Your dashboard is ready. We will add metrics in Sprint 6.</p>
-    </div>
-  );
-}
 
 function App(): React.JSX.Element {
   return (
@@ -57,15 +50,14 @@ function App(): React.JSX.Element {
             </ProtectedRoute>
           }
         >
-          <Route index element={<Navigate to="/dashboard" replace />} />
-          <Route path="dashboard" element={<DashboardPage />} />
+          <Route index element={<DashboardPage />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="customers" element={<CustomersPage />} />
           <Route path="suppliers" element={<SuppliersPage />} />
           <Route path="purchases" element={<PurchasesPage />} />
           <Route path="purchases/new" element={<CreatePurchasePage />} />
           <Route path="pos" element={<POSPage />} />
-          {/* Sprints 6 Pages will be added here */}
+          <Route path="reports" element={<ReportsPage />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

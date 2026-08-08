@@ -30,8 +30,8 @@
 | S3     | 👥 Customers & Suppliers        | CRUD, search, purchase history     | ✅ Complete |
 | S4     | 🛒 POS / Sales Screen           | Cashier UI, cart, checkout         | ✅ Complete |
 | S5     | 📥 Purchases / Restocking       | Supplier purchases, stock increase | ✅ Complete |
-| S6     | 📊 Dashboard & Reports          | Metrics, charts, analytics         | 🟡 Next    |
-| S7     | 🚀 Polish & Deployment          | Testing, UX, Docker, deploy        | 🔵 Planned |
+| S6     | 📊 Dashboard & Reports          | Metrics, charts, analytics         | ✅ Complete |
+| S7     | 🚀 Polish & Deployment          | Testing, UX, Docker, deploy        | 🟡 Next    |
 
 ---
 
