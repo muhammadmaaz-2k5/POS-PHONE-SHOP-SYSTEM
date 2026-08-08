@@ -1,0 +1,17 @@
+# Code Owners for Phone Shop POS System
+# These users are automatically requested for review on PRs
+
+# Root ownership — everything
+* @muhammadmaaz-2k5
+
+# Backend
+/backend/ @muhammadmaaz-2k5
+
+# Frontend
+/pos-retail-system/ @muhammadmaaz-2k5
+
+# Agile & planning docs
+/.agile-v/ @muhammadmaaz-2k5
+
+# CI/CD — require explicit review
+/.github/workflows/ @muhammadmaaz-2k5
