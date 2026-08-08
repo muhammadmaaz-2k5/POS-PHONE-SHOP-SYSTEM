@@ -35,7 +35,7 @@ jobs:
         run: npm ci
 
       - name: TypeScript check
-        run: npx tsc --noEmit
+        run: npm run type-check
 
   # ─── Lint ────────────────────────────────────────────────────────────────────
   lint:
@@ -56,7 +56,7 @@ jobs:
         run: npm ci
 
       - name: Run ESLint
-        run: npx eslint src --ext .ts,.tsx --max-warnings 0
+        run: npm run lint -- --max-warnings 0
 
   # ─── Build ───────────────────────────────────────────────────────────────────
   build:

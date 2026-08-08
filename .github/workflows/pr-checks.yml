@@ -74,11 +74,11 @@ jobs:
 
       - run: npm ci
       - name: TypeScript
-        run: npx tsc --noEmit
+        run: npm run type-check
       - name: ESLint
-        run: npx eslint src --ext .ts --max-warnings 0
+        run: npm run lint -- --max-warnings 0
       - name: Prisma validate
-        run: npx prisma validate
+        run: ./node_modules/.bin/prisma validate
       - name: Build
         run: npm run build
 
@@ -104,9 +104,9 @@ jobs:
 
       - run: npm ci
       - name: TypeScript
-        run: npx tsc --noEmit
+        run: npm run type-check
       - name: ESLint
-        run: npx eslint src --ext .ts,.tsx --max-warnings 0
+        run: npm run lint -- --max-warnings 0
       - name: Build
         run: npm run build
 
