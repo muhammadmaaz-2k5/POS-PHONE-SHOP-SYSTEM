@@ -10,9 +10,24 @@ const start = async (): Promise<void> => {
     await prisma.$connect();
     console.log('✅ PostgreSQL connected via Prisma');
 
+    // Global Process Error Handlers
+    process.on('uncaughtException', (error: Error) => {
+      console.error('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+      console.error(error.name, error.message);
+      process.exit(1);
+    });
+
     const server = app.listen(PORT, () => {
       console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
       console.log(`📡 Health check: http://localhost:${PORT}/health`);
+    });
+
+    process.on('unhandledRejection', (error: any) => {
+      console.error('UNHANDLED REJECTION! 💥 Shutting down...');
+      console.error(error.name, error.message);
+      server.close(() => {
+        process.exit(1);
+      });
     });
 
     // Graceful shutdown

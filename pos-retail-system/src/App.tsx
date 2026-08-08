@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
 // Pages
@@ -12,6 +12,7 @@ import PurchasesPage from './pages/PurchasesPage';
 import CreatePurchasePage from './pages/CreatePurchasePage';
 import DashboardPage from './pages/DashboardPage';
 import ReportsPage from './pages/ReportsPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 
 
@@ -19,10 +20,12 @@ import ReportsPage from './pages/ReportsPage';
 // Layout
 import MainLayout from './components/layout/MainLayout';
 import ProtectedRoute from './components/auth/ProtectedRoute';
+import ErrorBoundary from './components/layout/ErrorBoundary';
 
 function App(): React.JSX.Element {
   return (
-    <BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
       <Toaster
         position="top-right"
         toastOptions={{
@@ -60,9 +63,10 @@ function App(): React.JSX.Element {
           <Route path="reports" element={<ReportsPage />} />
         </Route>
 
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 

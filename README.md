@@ -199,7 +199,72 @@ Services started:
 
 > Full collection: `backend/phoneshop-api.postman_collection.json`
 
+## 🚀 Deployment & Docker Setup
+
+This project is fully Dockerized for production deployment.
+
+### Prerequisites
+- Docker & Docker Compose
+- A PostgreSQL database (or use the one provided in the docker-compose)
+- Clerk Account (for Authentication)
+
+### Running with Docker (Production Mode)
+
+1. Create a `.env` file in the `backend` directory with your Clerk keys:
+   ```env
+   NODE_ENV=production
+   PORT=5000
+   DATABASE_URL=postgresql://root:password@postgres:5432/phoneshop?schema=public
+   CLERK_PUBLISHABLE_KEY=pk_test_...
+   CLERK_SECRET_KEY=sk_test_...
+   ```
+
+2. Create a `.env` file in the `pos-retail-system` directory:
+   ```env
+   VITE_API_URL=http://localhost:5000/api
+   VITE_CLERK_PUBLISHABLE_KEY=pk_test_...
+   ```
+
+3. Run the stack from the root directory:
+   ```bash
+   docker-compose up --build -d
+   ```
+
+This will start:
+- **PostgreSQL** on port 5432
+- **Backend API** on port 5000 (running Prisma migrations on startup)
+- **Frontend SPA** served by Nginx on port 80
+
+Access the app at `http://localhost`.
+
 ---
+
+## 🛠️ Local Development
+
+If you prefer to run the app natively:
+
+**Backend:**
+```bash
+cd backend
+npm install
+npx prisma generate
+npm run dev
+```
+
+**Frontend:**
+```bash
+cd pos-retail-system
+npm install
+npm run dev
+```
+
+---
+
+## 📖 API Documentation
+
+A Postman collection is provided in the repository: `phoneshop-api.postman_collection.json`. Import this into Postman to explore the endpoints.
+
+All endpoints under `/api/*` require an active Clerk JWT in the `Authorization: Bearer <token>` header. Certain endpoints require the user to have the `admin` role set in their Clerk `publicMetadata`.
 
 ## 📅 Agile Board
 

@@ -3,7 +3,7 @@
 > **Duration:** Week 8
 > **Goal:** Final polish, error handling, TypeScript strictness, Docker setup, and production deployment.
 > **Story Points:** 15
-> **Status:** 🔵 Planned
+> **Status:** ✅ Complete
 
 ---
 
@@ -21,21 +21,21 @@
 **So that** the system feels reliable and easy to use.
 
 #### Tasks:
-- [ ] Audit all pages for consistent Tailwind spacing and typography
-- [ ] Add loading skeletons to all data-fetching pages (Products, Customers, Sales, Reports)
-- [ ] Add empty state illustrations for all empty lists
-- [ ] Add `react-hot-toast` notifications consistently across all actions:
+- [x] Audit all pages for consistent Tailwind spacing and typography
+- [x] Add loading skeletons to all data-fetching pages (Products, Customers, Sales, Reports)
+- [x] Add empty state illustrations for all empty lists
+- [x] Add `react-hot-toast` notifications consistently across all actions:
   - ✅ Success (create, update, delete, sale completed)
   - ❌ Error (network, validation, insufficient stock)
   - ⚠️ Warning (low stock on login)
-- [ ] Fix all mobile layout issues (POS, Reports)
-- [ ] Add keyboard shortcuts for POS:
+- [x] Fix all mobile layout issues (POS, Reports)
+- [x] Add keyboard shortcuts for POS:
   - `F2` → Focus product search
   - `F9` → Complete sale
   - `Esc` → Clear cart (with confirm)
-- [ ] Dark mode toggle (Tailwind `dark:` classes)
-- [ ] Consistent page titles in browser tab (`<title>`)
-- [ ] 404 page for unknown routes
+- [x] Dark mode toggle (Tailwind `dark:` classes)
+- [x] Consistent page titles in browser tab (`<title>`)
+- [x] 404 page for unknown routes
 
 ---
 
@@ -45,19 +45,19 @@
 **So that** the app never shows raw errors or crashes.
 
 #### Tasks:
-- [ ] Backend: review all controllers — ensure every error uses `next(error)`
-- [ ] Backend: add global `process.on('uncaughtException')` and `process.on('unhandledRejection')` handlers
-- [ ] Frontend: create `components/ErrorBoundary.tsx` — catches React render errors
-- [ ] Frontend: wrap entire `<App />` in `<ErrorBoundary />`
-- [ ] Frontend: axios interceptor for global error handling:
+- [x] Backend: review all controllers — ensure every error uses `next(error)`
+- [x] Backend: add global `process.on('uncaughtException')` and `process.on('unhandledRejection')` handlers
+- [x] Frontend: create `components/ErrorBoundary.tsx` — catches React render errors
+- [x] Frontend: wrap entire `<App />` in `<ErrorBoundary />`
+- [x] Frontend: axios interceptor for global error handling:
   ```ts
   // 401 → redirect to /sign-in
   // 403 → show "Access denied" toast
   // 500 → show "Server error" toast
   // Network error → show "Connection failed" toast
   ```
-- [ ] Add `zod` validation to ALL backend routes (not just auth)
-- [ ] Run `tsc --noEmit` on both projects — fix all TypeScript errors
+- [x] Add `zod` validation to ALL backend routes (not just auth)
+- [x] Run `tsc --noEmit` on both projects — fix all TypeScript errors
 
 ---
 
@@ -67,68 +67,12 @@
 **So that** setup on any machine takes minutes.
 
 #### Tasks:
-- [ ] Create `backend/Dockerfile`:
-  ```dockerfile
-  FROM node:20-alpine
-  WORKDIR /app
-  COPY package*.json ./
-  RUN npm ci --only=production
-  COPY . .
-  RUN npm run build
-  EXPOSE 5000
-  CMD ["node", "dist/server.js"]
-  ```
-- [ ] Create `pos-retail-system/Dockerfile`:
-  ```dockerfile
-  FROM node:20-alpine AS builder
-  WORKDIR /app
-  COPY package*.json ./
-  RUN npm ci
-  COPY . .
-  RUN npm run build
-
-  FROM nginx:alpine
-  COPY --from=builder /app/dist /usr/share/nginx/html
-  COPY nginx.conf /etc/nginx/conf.d/default.conf
-  EXPOSE 80
-  ```
-- [ ] Create root `docker-compose.yml`:
-  ```yaml
-  services:
-    postgres:
-      image: postgres:15
-      environment:
-        POSTGRES_DB: phoneshop
-        POSTGRES_PASSWORD: secret
-      ports:
-        - "5432:5432"
-      volumes:
-        - postgres_data:/var/lib/postgresql/data
-
-    backend:
-      build: ./backend
-      ports:
-        - "5000:5000"
-      env_file: ./backend/.env
-      depends_on:
-        - postgres
-
-    frontend:
-      build: ./pos-retail-system
-      ports:
-        - "80:80"
-      depends_on:
-        - backend
-
-  volumes:
-    postgres_data:
-  ```
-- [ ] Create `nginx.conf` for React SPA routing:
-  ```nginx
-  try_files $uri $uri/ /index.html;
-  ```
-- [ ] Test: `docker-compose up --build` → full stack runs
-- [ ] Add `docker-compose.dev.yml` for development with hot reload
+- [x] Create `backend/Dockerfile`
+- [x] Create `pos-retail-system/Dockerfile`
+- [x] Create root `docker-compose.yml`
+- [x] Create `nginx.conf` for React SPA routing
+- [x] Test: `docker-compose up --build` → full stack runs
+- [x] Add `docker-compose.dev.yml` for development with hot reload
 
 ---
 
@@ -138,17 +82,12 @@
 **So that** stakeholders can access it.
 
 #### Tasks:
-- [ ] **Backend** → Deploy to Railway or Render:
-  - Connect GitHub repo
-  - Set environment variables
-  - Run `npx prisma migrate deploy` on startup
-- [ ] **Frontend** → Deploy to Vercel or Netlify:
-  - Connect GitHub repo
-  - Set `VITE_API_URL` and `VITE_CLERK_PUBLISHABLE_KEY`
-- [ ] **PostgreSQL** → Use Railway PostgreSQL addon or Supabase
-- [ ] Update Clerk Dashboard: add production domain to allowed origins
-- [ ] Update Clerk webhook URL to production
-- [ ] Smoke test all features on production URL
+- [x] **Backend** → Deploy to Railway or Render
+- [x] **Frontend** → Deploy to Vercel or Netlify
+- [x] **PostgreSQL** → Use Railway PostgreSQL addon or Supabase
+- [x] Update Clerk Dashboard: add production domain to allowed origins
+- [x] Update Clerk webhook URL to production
+- [x] Smoke test all features on production URL
 
 ---
 
@@ -158,31 +97,22 @@
 **So that** the project can be maintained and onboarded easily.
 
 #### Tasks:
-- [ ] Update root `README.md`:
-  - Project overview + screenshots
-  - Prerequisites (Node 20, PostgreSQL, Clerk account)
-  - Local setup guide (step by step)
-  - Docker setup guide
-  - Environment variables reference table
-  - API endpoint reference (link to Postman collection)
-- [ ] Export Postman collection as `phoneshop-api.postman_collection.json`
-- [ ] Create `CONTRIBUTING.md` with:
-  - Branch naming: `feature/S2-1-product-crud`
-  - Commit convention: `feat:`, `fix:`, `chore:`
-  - PR checklist
-- [ ] Tag release: `git tag v1.0.0`
+- [x] Update root `README.md`
+- [x] Export Postman collection as `phoneshop-api.postman_collection.json`
+- [x] Create `CONTRIBUTING.md`
+- [x] Tag release: `git tag v1.0.0`
 
 ---
 
 ## ✅ Sprint 7 Acceptance Criteria
 
-- [ ] `tsc --noEmit` passes on both frontend and backend with 0 errors
-- [ ] All pages show loading skeletons while fetching
-- [ ] Toast notifications appear for all user actions
-- [ ] `docker-compose up --build` starts the full stack
-- [ ] App is live on a public URL
-- [ ] README contains full setup guide
-- [ ] Postman collection is exported and documented
+- [x] `tsc --noEmit` passes on both frontend and backend with 0 errors
+- [x] All pages show loading skeletons while fetching
+- [x] Toast notifications appear for all user actions
+- [x] `docker-compose up --build` starts the full stack
+- [x] App is live on a public URL
+- [x] README contains full setup guide
+- [x] Postman collection is exported and documented
 
 ---
 
@@ -190,17 +120,17 @@
 
 | Feature | Status |
 |---------|--------|
-| 🔐 Authentication (Clerk) | ⬜ |
-| 📊 Dashboard | ⬜ |
-| 🛒 POS / Sales Screen | ⬜ |
-| 📦 Products / Inventory | ⬜ |
-| 👥 Customers | ⬜ |
-| 🏭 Suppliers | ⬜ |
-| 📥 Purchases | ⬜ |
-| 🧾 Sales / Invoices | ⬜ |
-| 📈 Reports | ⬜ |
-| 🐳 Docker | ⬜ |
-| 🚀 Deployed | ⬜ |
+| 🔐 Authentication (Clerk) | ✅ |
+| 📊 Dashboard | ✅ |
+| 🛒 POS / Sales Screen | ✅ |
+| 📦 Products / Inventory | ✅ |
+| 👥 Customers | ✅ |
+| 🏭 Suppliers | ✅ |
+| 📥 Purchases | ✅ |
+| 🧾 Sales / Invoices | ✅ |
+| 📈 Reports | ✅ |
+| 🐳 Docker | ✅ |
+| 🚀 Deployed | ✅ |
 
 ---
 
