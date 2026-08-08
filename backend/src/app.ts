@@ -11,6 +11,8 @@ import webhookRoutes from './routes/webhookRoutes';
 import productRoutes from './routes/productRoutes';
 import customerRoutes from './routes/customerRoutes';
 import supplierRoutes from './routes/supplierRoutes';
+import saleRoutes from './routes/saleRoutes';
+
 
 const app = express();
 
@@ -53,7 +55,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/suppliers', supplierRoutes);
-// app.use('/api/sales', saleRoutes);
+app.use('/api/sales', saleRoutes);
 // app.use('/api/purchases', purchaseRoutes);
 // app.use('/api/analytics', analyticsRoutes);
 

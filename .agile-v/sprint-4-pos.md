@@ -3,7 +3,7 @@
 > **Duration:** Week 5
 > **Goal:** Build the full cashier POS interface — product search, cart, discount, payment, receipt generation, and automatic inventory deduction.
 > **Story Points:** 26
-> **Status:** 🔵 Planned
+> **Status:** ✅ Complete
 
 ---
 
@@ -54,15 +54,15 @@ model SaleItem {
 **So that** every POS transaction is recorded and inventory stays accurate.
 
 #### Tasks:
-- [ ] Create `routes/saleRoutes.ts`
-- [ ] Create `controllers/saleController.ts`:
+- [x] Create `routes/saleRoutes.ts`
+- [x] Create `controllers/saleController.ts`:
   ```
   GET  /api/sales          → getAllSales (date range, pagination)
   GET  /api/sales/:id      → getSaleById (with items)
   POST /api/sales          → createSale
   GET  /api/sales/today    → getTodaySales (for dashboard)
   ```
-- [ ] `createSale` logic (Prisma transaction):
+- [x] `createSale` logic (Prisma transaction):
   ```ts
   // 1. Generate invoice number: INV-YYYYMMDD-XXXXX
   // 2. Validate all items have enough stock
@@ -74,10 +74,10 @@ model SaleItem {
   //    ])
   // 5. Return created sale with items
   ```
-- [ ] Invoice number format: `INV-20260808-00001` (auto-increment per day)
-- [ ] Validate stock availability before completing sale
-- [ ] If any product has insufficient stock → rollback entire transaction, return error
-- [ ] Test full sale creation in Postman
+- [x] Invoice number format: `INV-20260808-00001` (auto-increment per day)
+- [x] Validate stock availability before completing sale
+- [x] If any product has insufficient stock → rollback entire transaction, return error
+- [x] Test full sale creation in Postman
 
 ---
 
@@ -87,7 +87,7 @@ model SaleItem {
 **So that** I can browse products on the left and manage the cart on the right.
 
 #### Tasks:
-- [ ] Create `pages/POSPage.tsx` with split layout:
+- [x] Create `pages/POSPage.tsx` with split layout:
   ```
   ┌─────────────────────────────────────────────┐
   │ 🔍 Search products...                       │
@@ -100,8 +100,8 @@ model SaleItem {
   │                      │ [Complete Sale]      │
   └──────────────────────┴──────────────────────┘
   ```
-- [ ] Responsive: stacks vertically on small screens
-- [ ] Create Zustand store `useCartStore`:
+- [x] Responsive: stacks vertically on small screens
+- [x] Create Zustand store `useCartStore`:
   ```ts
   interface CartStore {
     items: CartItem[];
@@ -127,17 +127,17 @@ model SaleItem {
 **So that** I can quickly find and add items to the cart.
 
 #### Tasks:
-- [ ] `components/pos/ProductSearchBar.tsx` — real-time search (debounced 200ms)
-- [ ] `components/pos/ProductGrid.tsx` — responsive grid of `ProductCard` components
-- [ ] `components/pos/ProductCard.tsx`:
+- [x] `components/pos/ProductSearchBar.tsx` — real-time search (debounced 200ms)
+- [x] `components/pos/ProductGrid.tsx` — responsive grid of `ProductCard` components
+- [x] `components/pos/ProductCard.tsx`:
   - Product name, brand, model
   - Selling price
   - Stock available
   - Color badge
   - "Out of Stock" overlay when `stock === 0`
   - Click → adds to cart (or increments quantity if already in cart)
-- [ ] Category filter tabs above the grid: All | Phones | Tablets | Accessories | ...
-- [ ] Show "No results" when search returns empty
+- [x] Category filter tabs above the grid: All | Phones | Tablets | Accessories | ...
+- [x] Show "No results" when search returns empty
 
 ---
 
@@ -147,21 +147,21 @@ model SaleItem {
 **So that** I can adjust the order before completing the sale.
 
 #### Tasks:
-- [ ] `components/pos/CartPanel.tsx` — right panel:
+- [x] `components/pos/CartPanel.tsx` — right panel:
   - List of `CartItem` rows
   - Each row: Product name, `[−] qty [+]`, unit price, subtotal, `[×]` remove
   - Cannot exceed available stock (+ button disabled if qty = stock)
-- [ ] `components/pos/CartTotals.tsx`:
+- [x] `components/pos/CartTotals.tsx`:
   - Subtotal
   - Discount (input field: flat $amount)
   - Tax (% toggle, default 0%)
   - **Total** (bold, large)
-- [ ] `components/pos/CustomerSelect.tsx`:
+- [x] `components/pos/CustomerSelect.tsx`:
   - Searchable dropdown to select existing customer
   - "Walk-in Customer" option (no customer)
-- [ ] `components/pos/PaymentMethodSelect.tsx`:
+- [x] `components/pos/PaymentMethodSelect.tsx`:
   - Tabs: 💵 Cash | 💳 Card | 📱 Other
-- [ ] Clear cart button (with confirmation)
+- [x] Clear cart button (with confirmation)
 
 ---
 
@@ -171,16 +171,16 @@ model SaleItem {
 **So that** the transaction is recorded and the customer gets proof of purchase.
 
 #### Tasks:
-- [ ] `components/pos/CheckoutModal.tsx`:
+- [x] `components/pos/CheckoutModal.tsx`:
   - Summary of all items
   - Payment method selected
   - For Cash: enter "Amount Received" → show "Change: $X"
   - "Confirm Sale" button → calls `POST /api/sales`
-- [ ] On success:
+- [x] On success:
   - Show success toast
   - Open `ReceiptModal`
   - Clear cart
-- [ ] `components/pos/ReceiptModal.tsx` — printable receipt:
+- [x] `components/pos/ReceiptModal.tsx` — printable receipt:
   ```
   ================================
           PHONE SHOP
@@ -205,9 +205,9 @@ model SaleItem {
           Thank You!
   ================================
   ```
-- [ ] "Print Receipt" button → `window.print()` with print-only CSS
-- [ ] "New Sale" button → closes modal, ready for next customer
-- [ ] Handle insufficient stock error from API: highlight which items failed
+- [x] "Print Receipt" button → `window.print()` with print-only CSS
+- [x] "New Sale" button → closes modal, ready for next customer
+- [x] Handle insufficient stock error from API: highlight which items failed
 
 ---
 
@@ -231,15 +231,15 @@ model SaleItem {
 
 ## ✅ Sprint 4 Acceptance Criteria
 
-- [ ] Cashier can search, filter by category, and add products to cart
-- [ ] Quantity can be increased/decreased — cannot exceed stock
-- [ ] Discount and tax update total in real-time
-- [ ] Customer can be selected or sale continues as walk-in
-- [ ] Cash payment shows correct change amount
-- [ ] Completing sale creates `Sale` + `SaleItem` records in DB
-- [ ] Product stock is decremented correctly after each sale
-- [ ] Receipt displays correctly and "Print" opens browser print dialog
-- [ ] Attempting a sale with insufficient stock shows an error
+- [x] Cashier can search, filter by category, and add products to cart
+- [x] Quantity can be increased/decreased — cannot exceed stock
+- [x] Discount and tax update total in real-time
+- [x] Customer can be selected or sale continues as walk-in
+- [x] Cash payment shows correct change amount
+- [x] Completing sale creates `Sale` + `SaleItem` records in DB
+- [x] Product stock is decremented correctly after each sale
+- [x] Receipt displays correctly and "Print" opens browser print dialog
+- [x] Attempting a sale with insufficient stock shows an error
 
 ---
 
